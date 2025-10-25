@@ -1,0 +1,3 @@
+Barclays: 3.2% annual interest for 3-month deposits.
+Monzo: flexible saver 4.1% AER.
+Lloyds: fixed 3-month 3.5% AER.
