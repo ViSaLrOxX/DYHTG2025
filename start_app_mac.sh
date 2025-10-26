@@ -27,11 +27,11 @@ fi
 
 echo ""
 echo "Starting Tiny Monopoly API server..."
-echo "📚 Server will run at: http://localhost:5000"
+echo "📚 Server will run at: http://localhost:8000"
 echo "🌱 Focus: Step-by-step financial education for beginners"
 echo ""
 echo "Keep this terminal open while using the app!"
 echo ""
 
 # Start the enhanced API server
-python3 enhanced_chatbot_api.py
+python3 qwen_chatbot_api.py
