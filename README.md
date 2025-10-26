@@ -1,6 +1,6 @@
-# 🏦 BankBuddy - Personal Finance Assistant
+# 🎯 Tiny Monopoly - Time to talk about money
 
-This is a personal finance chatbot application based on Flutter and Python, helping beginners understand banking, savings, and financial knowledge.
+This is a personal finance chatbot application based on Flutter and Python, helping beginners understand banking, savings, and financial knowledge through the fun concept of "Tiny Monopoly" - making finance feel like a game!
 
 ## 📋 Features
 

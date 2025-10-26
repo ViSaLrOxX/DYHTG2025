@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏦 BankBuddy - Personal Finance Assistant</title>
+    <title>🎯 Tiny Monopoly - Time to talk about money</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,11 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://staticg.sportskeeda.com/editor/2023/08/c3759-16918247209236-1920.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,9 +28,10 @@
             width: 90%;
             max-width: 800px;
             height: 80vh;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -78,6 +83,22 @@
             justify-content: flex-start;
         }
 
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-top: 5px;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #667eea;
+        }
+
+        .message.bot .message-avatar {
+            background-image: url('https://play-lh.googleusercontent.com/KdmQVnmRGYfW-edH5YIq8s1AyzRspDgXoBWbTe9CnkmB1TMr2K5KlP7GIZ0hHDs-sd8');
+        }
+
         .message-content {
             max-width: 70%;
             padding: 12px 16px;
@@ -94,6 +115,22 @@
             background: white;
             color: #333;
             border: 1px solid #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .message.bot .message-content strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .message.bot .message-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .message.bot .message-content a:hover {
+            text-decoration: underline;
         }
 
         .message-time {
@@ -104,8 +141,9 @@
 
         .chat-input-container {
             padding: 20px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(224, 224, 224, 0.5);
         }
 
         .chat-input {
@@ -176,18 +214,18 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            🏦 BankBuddy - Personal Finance Assistant
+            🎯 Tiny Monopoly - Time to talk about money
             <span class="status-indicator" id="statusIndicator"></span>
         </div>
         
         <div class="chat-messages" id="chatMessages">
             <div class="welcome-message">
-                Welcome to BankBuddy! I'm here to help you with banking and financial questions. How can I assist you today?
+                Welcome to Tiny Monopoly! I'm here to help you with banking and financial questions. How can I assist you today?
             </div>
         </div>
         
         <div class="loading" id="loading">
-            BankBuddy is thinking...
+            Tiny Monopoly is thinking...
         </div>
         
         <div class="chat-input-container">
@@ -278,9 +316,19 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}`;
             
+            // Add avatar for bot messages
+            if (sender === 'bot') {
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'message-avatar';
+                messageDiv.appendChild(avatarDiv);
+            }
+            
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
-            contentDiv.textContent = text;
+            
+            // Convert line breaks and format text for better display
+            const formattedText = formatMessageText(text);
+            contentDiv.innerHTML = formattedText;
             
             const timeDiv = document.createElement('div');
             timeDiv.className = 'message-time';
@@ -291,6 +339,22 @@
             
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function formatMessageText(text) {
+            // Convert line breaks to <br> tags
+            let formatted = text.replace(/\n/g, '<br>');
+            
+            // Convert **bold** to <strong>bold</strong>
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert bullet points • to proper HTML list items
+            formatted = formatted.replace(/• (.*?)(<br>|$)/g, '<div style="margin: 4px 0; padding-left: 10px;">• $1</div>');
+            
+            // Convert links [text](url) to proper HTML links
+            formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: #667eea; text-decoration: none;">$1</a>');
+            
+            return formatted;
         }
 
         function showError(message) {
