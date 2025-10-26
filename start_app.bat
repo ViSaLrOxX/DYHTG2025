@@ -23,7 +23,7 @@ echo.
 echo Starting Python API server...
 echo Please keep this window open, API server will run at http://localhost:5000
 echo.
-start "Tiny Monopoly API Server" python enhanced_chatbot_api.py
+start "Tiny Monopoly API Server" python qwen_chatbot_api.py
 
 echo Waiting for API server to start...
 timeout /t 5 /nobreak >nul
